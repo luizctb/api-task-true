@@ -4,7 +4,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { FindAllParameters, TaskDto } from './task.dto';
 import { TaskService } from './task.service';
-import { query } from 'express';
 
 @Controller('task')
 export class TaskController {
