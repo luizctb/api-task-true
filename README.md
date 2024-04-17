@@ -2,6 +2,9 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
+## Link de acesso ao aprenizado
+[link-aprendizado](https://www.youtube.com/watch?v=IjSTnaTS5TM&list=PLpcf8hdkpCYseV2ctwAhE4dY-AQ7v5D9S&index=11)
+
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
