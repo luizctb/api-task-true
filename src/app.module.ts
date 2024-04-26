@@ -14,7 +14,7 @@ import { DbModule } from './db/db.module';
     TaskModule, 
     UsersModule, 
     AuthModule, 
-    DbModule     
+    DbModule,     
   ],
   controllers: [AppController],
   providers: [AppService],

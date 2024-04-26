@@ -14,7 +14,7 @@ export class AuthController {
     @Post('login')
     async signIn(
         @Body('username') username: string,
-        @Body('password') password: string
+        @Body('password') password: string,
     ): Promise<AuthResponseDto> {
         return await this.AuthService.signIn(username, password);
     }

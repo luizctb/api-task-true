@@ -1,10 +1,19 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { 
+    Body, 
+    Controller, 
+    Delete, 
+    Get, 
+    Param, 
+    Post, 
+    Put, 
+    Query, UseGuards } from '@nestjs/common';
 import { FindAllParameters, TaskDto, TaskRouteParameters } from './task.dto';
 import { TaskService } from './task.service';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { TaskEntity } from 'src/db/entities/task.entity';
 
 @UseGuards(AuthGuard)
 @Controller('task')
@@ -12,12 +21,12 @@ export class TaskController {
         
     constructor(private readonly taskService: TaskService) {}
 
-    @Post() // criar inf
-    async create(@Body() task: TaskDto): Promise<TaskDto> {
+    @Post() // criar informação
+    async create(@Body() task: TaskDto): Promise<TaskEntity> {
         return await this.taskService.create(task);        
     }
 
-    @Get('/:id') // pushar inf
+    @Get('/:id') // buscar informação
     async findById(@Param('id') id:string): Promise<TaskDto> {
         return this.taskService.findById(id);
     }
@@ -27,8 +36,8 @@ export class TaskController {
         return this.taskService.findAll(params);
     }
    
-    @Put('/.id') //alterar inf 
-    async update(@Param() params: TaskRouteParameters, @Body() task: TaskDto) {
+    @Put('/:id') // atualizar informação
+    async update(@Param() params: TaskRouteParameters, @Body() task: TaskDto): Promise<void> {
         await this.taskService.update(params.id, task);
     }
 

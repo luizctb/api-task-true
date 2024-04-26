@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* colocar (+) representa mudar para número. */
@@ -18,20 +19,21 @@ export class AuthService {
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
     ) {
-        this.jwtExpirationTimeInSeconds = +this.configService.get<number>('JWT_EXPIRATION_TIME');
+        this.jwtExpirationTimeInSeconds = +this.configService.get<number>(
+            'JWT_EXPIRATION_TIME',
+        );
     }
 
-    async signIn(username: string, passord: string): Promise<AuthResponseDto> {
+    async signIn(username: string, password: string): Promise<AuthResponseDto> {
         const foundUser = await this.usersService.findByUserName(username);
 
-        if (!foundUser || !bcryptCompareSync(passord, foundUser.password)){
+        if (!foundUser || !bcryptCompareSync(password, foundUser.password)){
             throw new UnauthorizedException();            
         }
 
-        const payload = {sub: foundUser.id, username : foundUser.username};
+        const payload = { sub: foundUser.id, username: foundUser.username };
 
         const token = this.jwtService.sign(payload); 
-
-        return { token, expiresIn: this.jwtExpirationTimeInSeconds }
+        return { token, expiresIn: this.jwtExpirationTimeInSeconds };
     }
 }

@@ -6,7 +6,15 @@ services:
     container_name: task-management-api-db
     ports:
       - "5432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: task-management-api
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345678
+    networks:
+      - custom-network
+
+networks:
+  custom-network:
+    driver: bridge

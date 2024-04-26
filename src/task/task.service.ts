@@ -14,12 +14,12 @@ export class TaskService {
 
     constructor(
         @InjectRepository(TaskEntity)
-        private readonly taskRepository: Repository<TaskEntity>
+        private readonly taskRepository: Repository<TaskEntity>,
     ) { }
 
     private tasks: TaskDto[] = [];
     // criar pelo POST
-    async create(task: TaskDto): Promise<TaskDto>{
+    async create(task: TaskDto): Promise<TaskDto> {
         const taskToSave: TaskEntity = {
             id: uuid(),
             title: task.title,
@@ -29,7 +29,6 @@ export class TaskService {
         }
         
         const createdTask = await this.taskRepository.save(taskToSave);
-
         return this.mapEntityToDto(createdTask);
     }
     // buscar pelo GET
@@ -37,7 +36,10 @@ export class TaskService {
         const foundTask = await this.taskRepository.findOne({ where: { id } }); 
 
         if (!foundTask) {
-            throw new HttpException(`Task with id ${id} not found`, HttpStatus.NOT_FOUND);    
+            throw new HttpException(
+                `Task with id ${id} not found`,
+                HttpStatus.NOT_FOUND,
+            );    
         }  
         
         return this.mapEntityToDto(foundTask);
@@ -63,10 +65,13 @@ export class TaskService {
 
     // atualizar pelo pelo PUT
     async update(id: string, task: TaskDto) {
-        const foundTask = await this.taskRepository.findOne({ where: { id } });
+        const foundTask = await this.taskRepository.findOne({ where: { id } })
 
         if (!foundTask) {
-        throw new HttpException(`Task with id ${task.id} not found`, HttpStatus.BAD_REQUEST);
+            throw new HttpException(
+                `Task with id ${task.id} not found`, 
+                HttpStatus.BAD_REQUEST,
+            );
         } 
 
         await this.taskRepository.update(id, this.mapDtoToEntity(task));
@@ -74,11 +79,13 @@ export class TaskService {
     //deletar pelo Delete
     async remove(id: string) {
         
-        const result = await this.taskRepository.delete(id);
+        const result = await this.taskRepository.delete(id)
 
-        if (!result.affected){
-  
-            throw new HttpException(`Task with id ${id} not found`, HttpStatus.BAD_REQUEST); 
+        if (!result.affected) {  
+            throw new HttpException(
+                `Task with id ${id} not found`, 
+                HttpStatus.BAD_REQUEST,
+            ); 
         }
     }
 
